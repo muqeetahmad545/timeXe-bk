@@ -13,9 +13,10 @@ const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
-const PORT = parseInt(process.env.PORT || "8000");
+const PORT = parseInt(process.env.PORT || "5000");
 mongoose_1.default
-    .connect(process.env.MONGO_URL)
+    .connect(process.env.MONGO_URL ||
+        "mongodb+srv://muqeetahmad545:aws123@cluster0.c2nkkir.mongodb.net/attendence")
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.error("MongoDB connection error:", err));
 app.use(body_parser_1.default.json());
