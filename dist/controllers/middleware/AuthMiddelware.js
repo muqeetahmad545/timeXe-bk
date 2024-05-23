@@ -24,9 +24,10 @@ const authenticateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, f
     }
     try {
         // if (!process.env.JWT_SECRET) {
-        //     throw new Error("JWT_SECRET environment variable is not defined");
+        //   throw new Error("JWT_SECRET environment variable is not defined");
         // }
-        const decodedToken = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET || 'e6c45bde5954c0a9ca8051f239fd50b3c61d55b35ef3ff600a0d98763f467506');
+        const decodedToken = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET ||
+            "e6c45bde5954c0a9ca8051f239fd50b3c61d55b35ef3ff600a0d98763f467506");
         const userId = decodedToken.userId;
         const user = yield User_1.default.findById(userId);
         if (!user) {

@@ -13,32 +13,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkOut = void 0;
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const checkIn_1 = __importDefault(require("../models/checkIn"));
 const checkOut = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _a, _b;
     // const token = req.headers.authorization?.split(" ")[1];
     const checkOutTime = new Date();
     const date = new Date().setUTCHours(0, 0, 0, 0);
-    // if (!token) {
-    //   res.status(401).json({ success: false, message: "No token provided" });
-    //   return; 
-    // }
+    const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
+    if (!token) {
+        res.status(401).json({ success: false, message: "No token provided" });
+        return;
+    }
     try {
         // if (!process.env.JWT_SECRET) {
         //   throw new Error("JWT_SECRET environment variable is not defined");
         // }
-        // const decodedToken = jwt.verify(token, process.env.JWT_SECRET) as {
-        //   userId: string;
-        // };
-        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a._id;
+        const decodedToken = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET ||
+            "e6c45bde5954c0a9ca8051f239fd50b3c61d55b35ef3ff600a0d98763f467506");
+        const userId = (_b = req.user) === null || _b === void 0 ? void 0 : _b._id;
         const existingCheckInRecord = yield checkIn_1.default.findOne({
             user: userId,
             date: date,
         });
         if (!existingCheckInRecord) {
-            res
-                .status(400)
-                .json({
+            res.status(400).json({
                 success: false,
                 message: "No check-in record found for today",
             });
