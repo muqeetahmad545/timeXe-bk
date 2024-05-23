@@ -44,7 +44,7 @@ const PORT = parseInt(process.env.PORT || "5000");
 const connected = `mongodb+srv://muqeetahmad545:aws123@cluster0.c2nkkir.mongodb.net/attendence`;
 console.log("connected", connected);
 mongoose_1.default
-    .connect("")
+    .connect(connected)
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.error("MongoDB connection error:", err));
 app.use(body_parser_1.default.json());

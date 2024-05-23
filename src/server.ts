@@ -51,7 +51,7 @@ const connected = `mongodb+srv://muqeetahmad545:aws123@cluster0.c2nkkir.mongodb.
 console.log("connected", connected);
 
 mongoose
-  .connect("")
+  .connect(connected)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
