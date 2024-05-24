@@ -13,8 +13,8 @@ const router: Router = express.Router();
 router.post("/login", authUser);
 
 router.use(authenticateUser);
-
 router.post("/users", createUser);
+
 
 router.post("/attendance/check-in", checkIn);
 router.post("/attendance/check-out", checkOut);
