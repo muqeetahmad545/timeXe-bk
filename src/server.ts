@@ -41,6 +41,16 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import userRoutes from "./routes/userRoutes";
 
+
+declare global {
+  namespace Express {
+      interface Request {
+          user? : Record<string, any>
+      }
+  }
+}
+
+
 dotenv.config();
 const app: Application = express();
 app.use(cors());
