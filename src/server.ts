@@ -56,7 +56,7 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 app.use(bodyParser.json());
-// app.use("/api", userRoutes);
+app.use("/api", userRoutes);
 
 app.use(express.static(path.join(__dirname, "../build")));
 app.get("*", (req, res) => {
