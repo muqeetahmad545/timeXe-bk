@@ -26,13 +26,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const attendanceRecordSchema = new mongoose_1.Schema({
     user: { type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true },
+    userName: { type: String, required: true },
     time_in: { type: Date, required: true },
     time_out: { type: Date },
     working_hours: { type: Number },
     date: { type: Date, required: true },
     status: {
         type: String,
-        enum: ["Present", "Absent", "Late", "Excused"],
+        enum: ["Present", "Absent", "Leave",],
         default: "Present",
     },
 });

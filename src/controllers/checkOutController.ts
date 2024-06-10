@@ -37,7 +37,13 @@ export const checkOut = async (req: Request, res: Response): Promise<void> => {
       });
       return;
     }
-
+    if (existingCheckInRecord.time_out) {
+      res.status(400).json({
+        success: false,
+        message: "You are already checked out",
+      });
+      return;
+    }
     existingCheckInRecord.time_out = checkOutTime;
     existingCheckInRecord.working_hours =
       (checkOutTime.getTime() - existingCheckInRecord.time_in.getTime()) /

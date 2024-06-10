@@ -43,7 +43,6 @@ const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 const PORT = parseInt(process.env.PORT || "5000");
 const connected = `mongodb+srv://muqeetahmad545:aws123@cluster0.c2nkkir.mongodb.net/attendence`;
-console.log("connected", connected);
 mongoose_1.default
     .connect(connected)
     .then(() => console.log("MongoDB connected"))

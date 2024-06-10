@@ -42,9 +42,8 @@ export const authUser = async (req: Request, res: Response) => {
     if (!secret) {
       throw new Error("JWT_SECRET environment variable is not defined");
     }
-    const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "5h" });
-
-    res.json({ message: "Login successful", token });
+    const token = jwt.sign({ userId: user._id, firstName: user.firstName, lastName: user.lastName }, secret, { expiresIn: "30d" });
+    res.json({ message: "Login successful", user,token });
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ message: "Internal server error" });

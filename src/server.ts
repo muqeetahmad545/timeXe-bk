@@ -41,7 +41,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import userRoutes from "./routes/userRoutes";
 
-
 declare global {
   namespace Express {
       interface Request {
@@ -50,16 +49,12 @@ declare global {
   }
 }
 
-
 dotenv.config();
 const app: Application = express();
 app.use(cors());
 const PORT: number = parseInt(process.env.PORT || "5000");
 
-const connected = `mongodb+srv://muqeetahmad545:aws123@cluster0.c2nkkir.mongodb.net/attendence`;
-
-console.log("connected", connected);
-
+const connected =`mongodb+srv://muqeetahmad545:aws123@cluster0.c2nkkir.mongodb.net/attendence`;
 mongoose
   .connect(connected)
   .then(() => console.log("MongoDB connected"))

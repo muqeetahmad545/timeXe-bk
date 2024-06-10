@@ -10,8 +10,6 @@ export const getUserAttendance = async (
     const attendanceRecords = await AttendanceRecordSchema.find({
       user: userId,
     });
-    console.log(attendanceRecords);
-
     res.status(200).json({ success: true, data: attendanceRecords });
   } catch (error) {
     console.error("Error fetching user attendance:", error);

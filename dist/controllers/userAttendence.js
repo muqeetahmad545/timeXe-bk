@@ -21,7 +21,6 @@ const getUserAttendance = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const attendanceRecords = yield checkIn_1.default.find({
             user: userId,
         });
-        console.log(attendanceRecords);
         res.status(200).json({ success: true, data: attendanceRecords });
     }
     catch (error) {

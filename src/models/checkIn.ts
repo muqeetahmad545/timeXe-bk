@@ -6,17 +6,19 @@ export interface IAttendanceRecord extends Document {
   time_out?: Date;
   working_hours?: number,
   status: string;
+  userName:string;
 }
 
 const attendanceRecordSchema: Schema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  userName: { type: String, required: true },
   time_in: { type: Date, required: true },
   time_out: { type: Date },
   working_hours: {type: Number},
   date: { type: Date, required: true },
   status: {
     type: String,
-    enum: ["Present", "Absent", "Late", "Excused"],
+    enum: ["Present", "Absent","Leave",],
     default: "Present",
   },
 });

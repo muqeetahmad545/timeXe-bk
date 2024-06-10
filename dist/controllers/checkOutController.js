@@ -43,6 +43,13 @@ const checkOut = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
             return;
         }
+        if (existingCheckInRecord.time_out) {
+            res.status(400).json({
+                success: false,
+                message: "You are already checked out",
+            });
+            return;
+        }
         existingCheckInRecord.time_out = checkOutTime;
         existingCheckInRecord.working_hours =
             (checkOutTime.getTime() - existingCheckInRecord.time_in.getTime()) /

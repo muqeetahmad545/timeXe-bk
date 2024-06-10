@@ -34,12 +34,14 @@ const userSchema = new mongoose_1.Schema({
         lowercase: true,
         trim: true,
     },
-    password: { type: String, required: true, minlength: 6 },
+    password: { type: String, required: true, minlength: 8 },
+    confirmPassword: { type: String, required: true, minlength: 8 },
     cnic: { type: String, required: true, unique: true, trim: true },
     designation: { type: String, required: true },
     salary: { type: Number, required: true },
     dob: { type: Date, required: true },
     joiningDate: { type: Date, required: true },
     role: { type: String, required: true },
+    userLeaveApplication: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "leaveApplication", required: true }],
 });
 exports.default = mongoose_1.default.model("User", userSchema);
