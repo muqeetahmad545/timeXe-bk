@@ -12,9 +12,9 @@ export interface IAttendanceRecord extends Document {
 const attendanceRecordSchema: Schema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
   userName: { type: String, required: true },
-  time_in: { type: Date, required: true },
-  time_out: { type: Date },
-  working_hours: {type: Number},
+  time_in: { type: Date, required: true ||  "00:00:00 AM" },
+  time_out: { type: Date  ||  "00:00:00 AM"},
+  working_hours: {type: Number || 0},
   date: { type: Date, required: true },
   status: {
     type: String,

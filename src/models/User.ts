@@ -12,7 +12,7 @@ export interface IUser extends Document {
   dob: Date;
   joiningDate: Date;
   role: string;
-  userLeaveApplication: [{ type: Schema.Types.ObjectId, ref: "leaveApplication", required: true }],
+  // userLeaveApplication: [{ type: Schema.Types.ObjectId, ref: "leaveApplication", required: true }],
 }
 
 const userSchema: Schema = new Schema({
@@ -33,7 +33,7 @@ const userSchema: Schema = new Schema({
   dob: { type: Date, required: true },
   joiningDate: { type: Date, required: true },
   role: { type: String, required: true },
-  userLeaveApplication: [{ type: Schema.Types.ObjectId, ref: "leaveApplication", required: true }],
+  // userLeaveApplication: [{ type: Schema.Types.ObjectId, ref: "leaveApplication", required: true }],
 });
 
 export default mongoose.model<IUser>("User", userSchema);

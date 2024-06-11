@@ -8,10 +8,12 @@ export interface ILeaveApplication extends Document {
   endDate: Date;
   reason: string;
   leaveStatus: string;
+  date: Date;
 }
 
 const leaveApplication: Schema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  date: { type: Date, required: true },
   // user: { type: Schema.Types.ObjectId, ref: "AttendanceRecord", required: true },
   leaveType: { type: String, required: true },
   userName: { type: String, required: true },
