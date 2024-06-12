@@ -22,13 +22,14 @@ export const getAllAttendanceRecords = async (req: Request, res: Response): Prom
       const adjustedEndDate = new Date(endDate as string);
       adjustedEndDate.setUTCHours(23, 59, 59, 999);
       filter.date = { $lte: adjustedEndDate };
-    }else {
-      const today = new Date();
-      today.setUTCHours(0, 0, 0, 0);
-      const endOfDay = new Date();
-      endOfDay.setUTCHours(23, 59, 59, 999);
-      filter.date = { $gte: today, $lte: endOfDay };
     }
+    // else {
+    //   const today = new Date();
+    //   today.setUTCHours(0, 0, 0, 0);
+    //   const endOfDay = new Date();
+    //   endOfDay.setUTCHours(23, 59, 59, 999);
+    //   filter.date = { $gte: today, $lte: endOfDay };
+    // }
     const allAttendanceRecords: IAttendanceRecord[] = await AttendanceRecordSchema.find(filter);
     res.status(200).json({ success: true, data: allAttendanceRecords });
   } catch (error) {
