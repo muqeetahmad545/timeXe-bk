@@ -12,7 +12,7 @@ export interface IUser extends Document {
   dob: Date;
   joiningDate: Date;
   role: string;
-  // userLeaveApplication: [{ type: Schema.Types.ObjectId, ref: "leaveApplication", required: true }],
+  // userLeaveApplication: [{ type: Schema.Types.ObjectId, ref: "leaveApplication", required: true }],  
 }
 
 const userSchema: Schema = new Schema({
