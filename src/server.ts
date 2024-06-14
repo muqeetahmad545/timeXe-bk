@@ -21,7 +21,7 @@ const app: Application = express();
 app.use(cors());
 const PORT: number = parseInt(process.env.PORT || "5000");
 
-const connected = `mongodb+srv://muqeetahmad545:aws123@cluster0.c2nkkir.mongodb.net/attendence`;
+const connected = `mongodb+srv://muqeetahmad545:aws123@cluster0.c2nkkir.mongodb.net/Time-Xe`;
 mongoose
   .connect(connected)
   .then(() => console.log("MongoDB connected"))
