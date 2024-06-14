@@ -12,8 +12,8 @@ export interface IUser extends Document {
     cnic: string;
     profileImage: string;
     gender: string;
-    };
-    jobDetail: {
+  };
+  jobDetail: {
     employeeId: number;
     companyName: string;
     department: string;
@@ -46,16 +46,16 @@ const userSchema: Schema = new Schema(
         unique: true,
         lowercase: true,
         trim: true,
-        },
-        address: { type: String },
-        phone: { type: Number, required: true },
-        dob: { type: Date, required: true },
-        cnic: { type: String, required: true, unique: true, trim: true },
-        profileImage: { type: String },
-        gender: { type: String },
-        },
-        jobDetail: {
-          employeeId: { type: Number, unique: true },
+      },
+      address: { type: String },
+      phone: { type: Number, required: true },
+      dob: { type: Date, required: true },
+      cnic: { type: String, required: true, unique: true, trim: true },
+      profileImage: { type: String },
+      gender: { type: String },
+    },
+    jobDetail: {
+      employeeId: { type: Number, unique: true },
       companyName: { type: String },
       department: { type: String },
       jobPosition: { type: String },
@@ -74,9 +74,9 @@ const userSchema: Schema = new Schema(
     },
     signInDetail: {
       userName: { type: String, required: true },
-      signInEmail: { type: String, required: true},
-      password: { type: String, required: true,minlength:8 },
-      confirmPassword: { type: String, required: true,minlength:8},
+      signInEmail: { type: String, required: true },
+      password: { type: String, required: true, minlength: 8 },
+      confirmPassword: { type: String, required: true, minlength: 8 },
     },
   },
   { timestamps: true }
@@ -91,7 +91,11 @@ userSchema.pre<IUser>("save", async function (next) {
 
   try {
     const UserModel = this.constructor as Model<IUser>;
-    const lastUser = await UserModel.findOne({}, {}, { sort: { "jobDetail.employeeId": -1 } });
+    const lastUser = await UserModel.findOne(
+      {},
+      {},
+      { sort: { "jobDetail.employeeId": -1 } }
+    );
     if (!lastUser) {
       this.jobDetail.employeeId = 1;
     } else {
@@ -99,7 +103,7 @@ userSchema.pre<IUser>("save", async function (next) {
     }
     next();
   } catch (error) {
-      console.log("error", error);
+    console.log("error", error);
   }
 });
 
