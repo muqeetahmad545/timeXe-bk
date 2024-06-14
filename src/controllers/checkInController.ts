@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
 import AttendanceRecordSchema from "../models/checkIn";
-import userSchema from "../models/User"
+import userSchema from "../models/User";
 
 export const checkIn = async (req: Request, res: Response): Promise<void> => {
   const checkInTime = new Date();
-  const date = new Date().setUTCHours(0, 0, 0, 0); 
+  const date = new Date().setUTCHours(0, 0, 0, 0);
   try {
     const userId = req.user?._id;
+<<<<<<< Updated upstream
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     const firstName = req.user?.firstName;
     const lastName = req.user?.lastName;
@@ -15,6 +17,20 @@ export const checkIn = async (req: Request, res: Response): Promise<void> => {
       user: userId,
       date: date,
       userName: userName 
+=======
+    const userName = req.user?.signInDetail?.userName;
+    const existingCheckInRecord = await AttendanceRecordSchema.findOne({
+      user: userId,
+      date: date,
+      userName: userName,
+>>>>>>> Stashed changes
+=======
+    const fullName = req.user?.fullName;
+    const existingCheckInRecord = await AttendanceRecordSchema.findOne({
+      user: userId,
+      date: date,
+      userName: fullName,
+>>>>>>> b06a11ed0222b607cc551b9b7c80fd3b33adda5a
 =======
     const userName = req.user?.signInDetail?.userName;
     const existingCheckInRecord = await AttendanceRecordSchema.findOne({
@@ -55,12 +71,10 @@ export const checkIn = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-
 export const markAbsentees = async (): Promise<void> => {
   const date = new Date().setUTCHours(0, 0, 0, 0);
   try {
-    const users = await userSchema
-    .find();
+    const users = await userSchema.find();
 
     for (const user of users) {
       const existingRecord = await AttendanceRecordSchema.findOne({
@@ -69,23 +83,23 @@ export const markAbsentees = async (): Promise<void> => {
       });
 
       if (!existingRecord) {
-        const userName = `${user.firstName} ${user.lastName}`;
-        const timeIn = new Date(); 
-        const timeOut = new Date(); 
+        // const userName = fullName;
+        const timeIn = new Date();
+        const timeOut = new Date();
         timeIn.setHours(0, 0, 0, 0);
         timeOut.setHours(0, 0, 0, 0);
         const absentRecord = new AttendanceRecordSchema({
           user: user._id,
-          userName: userName,
+          // userName: fullName,
           date: date,
           status: "Absent",
           time_in: timeIn,
-          time_out: timeOut, 
-          working_hours: 0, 
+          time_out: timeOut,
+          working_hours: 0,
         });
 
         await absentRecord.save();
-        console.log(`User ${userName} is marked as absent`);
+        // console.log(`User ${userName} is marked as absent`);
       }
     }
 
@@ -96,7 +110,7 @@ export const markAbsentees = async (): Promise<void> => {
 };
 
 // export const markAbsentees = async () => {
-//   const date = new Date().setUTCHours(0, 0, 0, 0); 
+//   const date = new Date().setUTCHours(0, 0, 0, 0);
 //   try {
 //     const users = await AttendanceRecordSchema.find({ date });
 //     for (const user of users) {
@@ -122,7 +136,7 @@ export const markAbsentees = async (): Promise<void> => {
 
 // export const checkIn = async (req: Request, res: Response): Promise<void> => {
 //   const checkInTime = new Date();
-//   const date = startOfDay(checkInTime).getTime(); 
+//   const date = startOfDay(checkInTime).getTime();
 //   console.log("Today's date (UTC start of day):", new Date(date));
 //   console.log("Check-in time:", checkInTime);
 

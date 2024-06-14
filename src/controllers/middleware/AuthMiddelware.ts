@@ -25,8 +25,16 @@ export const authenticateUser = async (
     ) as {
       userId: string;
 <<<<<<< Updated upstream
+<<<<<<< HEAD
+<<<<<<< Updated upstream
       firstName: string;
       lastName: string;
+=======
+      userName: string;
+>>>>>>> Stashed changes
+=======
+      fullName: string;
+>>>>>>> b06a11ed0222b607cc551b9b7c80fd3b33adda5a
 =======
       userName: string;
 >>>>>>> Stashed changes

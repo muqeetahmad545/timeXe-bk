@@ -9,10 +9,13 @@ export const createUser = async (
 ): Promise<void> => {
   try {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     const { password, ...userData } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 =======
+=======
+>>>>>>> Stashed changes
     const {signInDetail, userData } = req.body;
 
     const body = req.body
@@ -24,6 +27,15 @@ export const createUser = async (
     const hashedPassword = await bcrypt.hash(signInDetail.password, 10);
 
     body.signInDetail.password = hashedPassword
+<<<<<<< Updated upstream
+=======
+
+
+    console.log("body" , body);
+    
+
+    const user = await User.create(body);
+>>>>>>> Stashed changes
 
 
     console.log("body" , body);
@@ -45,12 +57,15 @@ export const createUser = async (
 
 export const authUser = async (req: Request, res: Response) => {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   const { email, password } = req.body;
 
   try {
     // Check if the user exists
     const user = await User.findOne({ email });
 =======
+=======
+>>>>>>> Stashed changes
   const { signInEmail, password } = req.body; 
 
   try {
@@ -61,15 +76,19 @@ export const authUser = async (req: Request, res: Response) => {
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     // Validate the password
     const isPasswordValid = await bcrypt.compare(password, user.password);
 =======
+=======
+>>>>>>> Stashed changes
     const isPasswordValid = await bcrypt.compare(password, user.signInDetail.password);
 >>>>>>> Stashed changes
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid password" });
     }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     // Generate JWT token
     const secret =
@@ -78,11 +97,18 @@ export const authUser = async (req: Request, res: Response) => {
 =======
     const secret = process.env.JWT_SECRET || "e6c45bde5954c0a9ca8051f239fd50b3c61d55b35ef3ff600a0d98763f467506";
 >>>>>>> Stashed changes
+=======
+    const secret = process.env.JWT_SECRET || "e6c45bde5954c0a9ca8051f239fd50b3c61d55b35ef3ff600a0d98763f467506";
+>>>>>>> Stashed changes
     if (!secret) {
       throw new Error("JWT_SECRET environment variable is not defined");
     }
-    const token = jwt.sign({ userId: user._id, firstName: user.firstName, lastName: user.lastName }, secret, { expiresIn: "30d" });
-    res.json({ message: "Login successful", user,token });
+    const token = jwt.sign(
+      { userId: user._id, fullName: user.fullName },
+      secret,
+      { expiresIn: "30d" }
+    );
+    res.json({ message: "Login successful", user, token });
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ message: "Internal server error" });

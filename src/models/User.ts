@@ -1,41 +1,48 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUser extends Document {
-  firstName: string;
-  lastName: string;
+  fullName: string;
+  fatherName: string;
   email: string;
+  address: string;
+  phone: number;
+  companyName: string;
+  department: string;
+  jobPosition: string;
+  manager: string;
+  profileImage: string;
   password: string;
   confirmPassword: string;
   cnic: string;
   designation: string;
-  salary: number;
   dob: Date;
   joiningDate: Date;
   role: string;
+<<<<<<< HEAD
   // userLeaveApplication: [{ type: Schema.Types.ObjectId, ref: "leaveApplication", required: true }],  
+=======
+>>>>>>> b06a11ed0222b607cc551b9b7c80fd3b33adda5a
 }
 
 const userSchema: Schema = new Schema(
   {
+<<<<<<< HEAD
     userDetail: {
       fullName: { type: String, required: true },
       fatherName: { type: String },
       email: {
         type: String,
         required: true,
-        unique: true,
-        lowercase: true,
-        trim: true,
       },
       address: { type: String },
       phone: { type: Number, required: true },
       dob: { type: Date, required: true },
-      cnic: { type: String, required: true, unique: true, trim: true },
+      cnic: { type: String, required: true,  trim: true },
       profileImage: { type: String },
       gender: { type: String },
     },
     jobDetail: {
-      employeeId: { type: Number, unique: true },
+      employeeId: { type: Number },
       companyName: { type: String },
       department: { type: String },
       jobPosition: { type: String },
@@ -56,7 +63,7 @@ const userSchema: Schema = new Schema(
       userName: { type: String, required: true },
       signInEmail: { type: String, required: true },
       password: { type: String, required: true, minlength: 8 },
-      confirmPassword: { type: String, required: true, minlength: 8 },
+      confirmPassword: { type: String, required: false },
     },
   },
   { timestamps: true }
@@ -86,5 +93,34 @@ const userSchema: Schema = new Schema(
 //     console.log("error", error);
 //   }
 // });
+=======
+    fullName: { type: String, required: true },
+    fatherName: { type: String },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    address: { type: String },
+    phone: { type: Number, required: true },
+    companyName: { type: String },
+    department: { type: String },
+    jobPosition: { type: String },
+    manager: { type: String },
+    profileImage: { type: String },
+    password: { type: String, required: true, minlength: 8 },
+    confirmPassword: { type: String, required: true, minlength: 8 },
+    cnic: { type: String, required: true, unique: true, trim: true },
+    designation: { type: String, required: true },
+    dob: { type: Date, required: true },
+    joiningDate: { type: Date, required: true },
+    role: { type: String, required: true },
+    // userLeaveApplication: [{ type: Schema.Types.ObjectId, ref: "leaveApplication", required: true }],
+  },
+  { timestamps: true }
+);
+>>>>>>> b06a11ed0222b607cc551b9b7c80fd3b33adda5a
 
 export default mongoose.model<IUser>("User", userSchema);
