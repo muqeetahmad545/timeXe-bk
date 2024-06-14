@@ -63,28 +63,28 @@ const userSchema: Schema = new Schema(
 );
 
 // Pre-save middleware to auto-increment userID
-userSchema.pre<IUser>("save", async function (next) {
-  if (!this.isNew) {
-    next();
-    return;
-  }
+// userSchema.pre<IUser>("save", async function (next) {
+//   if (!this.isNew) {
+//     next();
+//     return;
+//   }
 
-  try {
-    const UserModel = this.constructor as Model<IUser>;
-    const lastUser = await UserModel.findOne(
-      {},
-      {},
-      { sort: { "jobDetail.employeeId": -1 } }
-    );
-    if (!lastUser) {
-      this.jobDetail.employeeId = 1;
-    } else {
-      this.jobDetail.employeeId = (lastUser.jobDetail.employeeId as number) + 1;
-    }
-    next();
-  } catch (error) {
-    console.log("error", error);
-  }
-});
+//   try {
+//     const UserModel = this.constructor as Model<IUser>;
+//     const lastUser = await UserModel.findOne(
+//       {},
+//       {},
+//       { sort: { "jobDetail.employeeId": -1 } }
+//     );
+//     if (!lastUser) {
+//       this.jobDetail.employeeId = 1;
+//     } else {
+//       this.jobDetail.employeeId = (lastUser.jobDetail.employeeId as number) + 1;
+//     }
+//     next();
+//   } catch (error) {
+//     console.log("error", error);
+//   }
+// });
 
 export default mongoose.model<IUser>("User", userSchema);
