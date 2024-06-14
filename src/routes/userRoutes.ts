@@ -6,14 +6,29 @@ import { checkOut } from "../controllers/checkOutController";
 import { deleteUsers, getAllUsers, updateUsers } from "../controllers/fetchUsersController";
 import { authenticateUser } from "../controllers/middleware/AuthMiddelware";
 import { getUserAttendance } from "../controllers/userAttendence";
+<<<<<<< Updated upstream
 import { deleteAttendance, getAllAttendanceRecords } from "../controllers/allUserAttendance";
 import { createLeaveApplication, deleteLeaveApplication, getAllRecords, getLeaveApplication, updateLeaveApplication } from "../controllers/leaveApplicationController";
+=======
+import {
+  deleteAttendance,
+  getAllAttendanceRecords,
+} from "../controllers/allUserAttendance";
+import {
+  createLeaveApplication,
+  deleteLeaveApplication,
+  getAllRecords,
+  getLeaveApplication,
+  updateLeaveApplication,
+} from "../controllers/leaveApplicationController";
+import { uploadRouter } from "./uploadRouter";
+>>>>>>> Stashed changes
 
 const router: Router = express.Router();
 
 router.post("/login", authUser);
 
-router.use(authenticateUser);
+// router.use(authenticateUser);
 router.post("/users", createUser);
 
 
@@ -37,5 +52,10 @@ router.get('/leaveapplication/user',getLeaveApplication)
 router.post("/leaveapplication", createLeaveApplication);
 router.patch("/leaveapplication", updateLeaveApplication);
 router.delete("/leaveapplication", deleteLeaveApplication);
+
+
+//Upload
+
+router.get
 
 export default router;

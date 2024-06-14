@@ -14,27 +14,97 @@ export const getAllUsers = async (req: Request, res: Response): Promise<void> =>
   }
 };
 
+
+
+
 export const updateUsers = async (req: Request, res: Response): Promise<void> => {
-  const userId = req.query.userId;
-  const updateData = req.body; 
+  const userId = req.query.userId as string;
+  const updateData = req.body; // Assume the request body contains fields to be updated
+
   try {
-    if (!userId || !isValidObjectId(userId)) {
-      res.status(400).json({ success: false, message: "Invalid userId provided" });
+    if (!userId) {
+      res.status(400).json({ success: false, message: "Missing userId in request query" });
       return;
     }
 
-    const updatedUser = await User.findByIdAndUpdate(userId, updateData, { new: true });
+    // Construct the update object dynamically
+    const updateObject: any = {};
+    for (const key in updateData) {
+      updateObject[`userDetail.${key}`] = updateData[key];
+      updateObject[`jobDetail.${key}`] = updateData[key];
+      updateObject[`signInDetail.${key}`] = updateData[key];
+    }
+
+    // Find the user by userId and update the specified fields
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updateObject }, // Update specified fields
+      { new: true } // Return the updated document
+    );
+
     if (!updatedUser) {
       res.status(404).json({ success: false, message: "User not found" });
       return;
     }
-    
+
     res.status(200).json({ success: true, message: 'User updated successfully', data: updatedUser });
   } catch (error) {
     console.error('Error updating user:', error);
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 }
+
+
+// export const updateUsers = async (req: Request, res: Response): Promise<void> => {
+//   const userId = req.query.userId;
+//   console.log("userId", userId);
+//   const updateData = req.body;
+//   try {
+//     if (!userId || !isValidObjectId(userId)) {
+//       res.status(400).json({ success: false, message: "Invalid userId provided" });
+//       return;
+//     }
+
+//     const updatedUser = await User.findOneAndUpdate(
+//       { _id: userId },
+//       { $set: updateData },
+//       { new: true }
+//     );
+
+//     if (!updatedUser) {
+//       res.status(404).json({ success: false, message: "User not found" });
+//       return;
+//     }
+
+//     res.status(200).json({ success: true, message: 'User updated successfully', data: updatedUser });
+//   } catch (error) {
+//     console.error('Error updating user:', error);
+//     res.status(500).json({ success: false, message: 'Internal server error' });
+//   }
+// }
+
+// export const updateUsers = async (req: Request, res: Response): Promise<void> => {
+//   const userId = req.query.userId;
+//   console.log("userId",userId);
+//   const updateData = req.body; 
+//   try {
+//     if (!userId || !isValidObjectId(userId)) {
+//       res.status(400).json({ success: false, message: "Invalid userId provided" });
+//       return;
+//     }
+
+//     const updatedUser = await User.findByIdAndUpdate(userId, { $set: updateData }, { new: true });
+//     if (!updatedUser) {
+//       res.status(404).json({ success: false, message: "User not found" });
+//       return;
+//     }
+    
+//     res.status(200).json({ success: true, message: 'User updated successfully', data: updatedUser });
+//   } catch (error) {
+//     console.error('Error updating user:', error);
+//     res.status(500).json({ success: false, message: 'Internal server error' });
+//   }
+// }
 
 export const deleteUsers = async (req: Request, res: Response): Promise<void> => {
   const userId = req.query.userId; 

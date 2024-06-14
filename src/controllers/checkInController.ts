@@ -7,6 +7,7 @@ export const checkIn = async (req: Request, res: Response): Promise<void> => {
   const date = new Date().setUTCHours(0, 0, 0, 0); 
   try {
     const userId = req.user?._id;
+<<<<<<< Updated upstream
     const firstName = req.user?.firstName;
     const lastName = req.user?.lastName;
     const userName = `${firstName} ${lastName}`;
@@ -14,6 +15,13 @@ export const checkIn = async (req: Request, res: Response): Promise<void> => {
       user: userId,
       date: date,
       userName: userName 
+=======
+    const userName = req.user?.signInDetail?.userName;
+    const existingCheckInRecord = await AttendanceRecordSchema.findOne({
+      user: userId,
+      date: date,
+      userName: userName,
+>>>>>>> Stashed changes
     });
     if (existingCheckInRecord) {
       res.status(201).json({

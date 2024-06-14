@@ -24,8 +24,12 @@ export const authenticateUser = async (
         "e6c45bde5954c0a9ca8051f239fd50b3c61d55b35ef3ff600a0d98763f467506"
     ) as {
       userId: string;
+<<<<<<< Updated upstream
       firstName: string;
       lastName: string;
+=======
+      userName: string;
+>>>>>>> Stashed changes
     };
     const userId = decodedToken.userId;
     const user = await User.findById(userId);
