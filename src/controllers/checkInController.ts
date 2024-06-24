@@ -7,11 +7,11 @@ export const checkIn = async (req: Request, res: Response): Promise<void> => {
   const date = new Date().setUTCHours(0, 0, 0, 0);
   try {
     const userId = req.user?._id;
-    const fullName = req.user?.fullName;
+    const userName = req.user?.signInDetail.userName;
     const existingCheckInRecord = await AttendanceRecordSchema.findOne({
       user: userId,
       date: date,
-      userName: fullName,
+      userName: userName,
     });
     if (existingCheckInRecord) {
       res.status(201).json({
@@ -24,7 +24,7 @@ export const checkIn = async (req: Request, res: Response): Promise<void> => {
     const attendanceRecord = new AttendanceRecordSchema({
       user: userId,
       time_in: checkInTime,
-      userName: fullName,
+      userName: userName,
       date: date,
       status: "Present",
     });

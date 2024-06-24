@@ -1,4 +1,3 @@
-
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -16,9 +15,6 @@ export const getUserDetails = async (
   }
 
   try {
-    // if (!process.env.JWT_SECRET) {
-    //   throw new Error("JWT_SECRET environment variable is not defined");
-    // }
     const decodedToken = jwt.verify(
       token,
       process.env.JWT_SECRET ||
@@ -26,6 +22,7 @@ export const getUserDetails = async (
     ) as {
       userId: string;
     };
+    console.log("decodedToken", decodedToken);
     const userId = decodedToken.userId;
     const user = await User.findById(userId);
     if (!user) {

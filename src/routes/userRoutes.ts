@@ -6,9 +6,9 @@ import { checkOut } from "../controllers/checkOutController";
 import {
   deleteUsers,
   getAllUsers,
+  updatStatus,
   updateUsers,
 } from "../controllers/fetchUsersController";
-import { authenticateUser } from "../controllers/middleware/AuthMiddelware";
 import { getUserAttendance } from "../controllers/userAttendence";
 import {
   deleteAttendance,
@@ -21,6 +21,7 @@ import {
   getLeaveApplication,
   updateLeaveApplication,
 } from "../controllers/leaveApplicationController";
+import { authenticateUser } from "../controllers/middleware/AuthMiddelware";
 
 const router: Router = express.Router();
 
@@ -37,6 +38,7 @@ router.get("/userDetails", getUserDetails);
 router.get("/fetchusers", getAllUsers);
 router.delete("/delete", deleteUsers);
 router.patch("/update", updateUsers);
+router.patch("/status", updatStatus);
 
 // Attandace
 router.get("/userattendance", getUserAttendance);

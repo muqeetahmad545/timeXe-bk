@@ -1,6 +1,4 @@
-import { log } from "console";
-import mongoose, { Schema, Document, Model } from "mongoose";
-
+import mongoose, { Schema, Document } from "mongoose";
 export interface IUser extends Document {
   userDetail: {
     fullName: string;
@@ -49,13 +47,13 @@ const userSchema: Schema = new Schema(
       },
       address: { type: String },
       phone: { type: Number, required: true },
-      dob: { type: Date, required: true },
-      cnic: { type: String, required: true, unique: true, trim: true },
+      dob: { type: Date },
+      cnic: { type: String, unique: true, trim: true },
       profileImage: { type: String },
       gender: { type: String },
     },
     jobDetail: {
-      employeeId: { type: Number, unique: true },
+      employeeId: { type: Number },
       companyName: { type: String },
       department: { type: String },
       jobPosition: { type: String },
@@ -81,30 +79,5 @@ const userSchema: Schema = new Schema(
   },
   { timestamps: true }
 );
-
-// Pre-save middleware to auto-increment userID
-userSchema.pre<IUser>("save", async function (next) {
-  if (!this.isNew) {
-    next();
-    return;
-  }
-
-  try {
-    const UserModel = this.constructor as Model<IUser>;
-    const lastUser = await UserModel.findOne(
-      {},
-      {},
-      { sort: { "jobDetail.employeeId": -1 } }
-    );
-    if (!lastUser) {
-      this.jobDetail.employeeId = 1;
-    } else {
-      this.jobDetail.employeeId = (lastUser.jobDetail.employeeId as number) + 1;
-    }
-    next();
-  } catch (error) {
-    console.log("error", error);
-  }
-});
 
 export default mongoose.model<IUser>("User", userSchema);
