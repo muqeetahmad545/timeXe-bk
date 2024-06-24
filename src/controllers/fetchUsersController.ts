@@ -64,7 +64,6 @@ export const updatStatus = async (
 ): Promise<void> => {
   const userId = req.query.userId as string;
   const updateData = req.body;
-
   try {
     if (!userId) {
       res
