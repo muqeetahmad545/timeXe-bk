@@ -66,7 +66,7 @@ const userSchema: Schema = new Schema(
       Skills: { type: String },
       status: {
         type: String,
-        enum: ["Active", "InActive"],
+        enum: ["Active", "Inactive"],
         default: "Active",
       },
     },

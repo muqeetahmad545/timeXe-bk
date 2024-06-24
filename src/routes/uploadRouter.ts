@@ -1,9 +1,6 @@
-import express, { Request, Response } from "express";
-import { imageHandler } from "../controllers/uploadController";
-
-const router = express.Router();
-
-router.post("/file", async (req: Request, res: Response) => {
+import { Request, Response } from 'express';
+import {imageHandler} from '../controllers/uploadController'
+export const handleImageUpload = async (req: Request, res: Response): Promise<void> => {
   try {
     const result = await imageHandler(req, res);
 
@@ -11,7 +8,8 @@ router.post("/file", async (req: Request, res: Response) => {
 
     if (!result || !result.secure_url) {
       console.error("Secure URL is undefined in Cloudinary response:", result);
-      return res.status(500).json({ success: false, error: "Image upload failed" });
+      res.status(500).json({ success: false, error: "Image upload failed" });
+      return;
     }
 
     const { secure_url, public_id } = result;
@@ -21,6 +19,5 @@ router.post("/file", async (req: Request, res: Response) => {
     console.error("Error uploading image:", error);
     res.status(500).json({ success: false, error: "Image upload failed" });
   }
-});
+};
 
-export { router as uploadRouter };

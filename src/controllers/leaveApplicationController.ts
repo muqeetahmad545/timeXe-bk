@@ -7,16 +7,14 @@ export const createLeaveApplication = async (req: Request, res: Response): Promi
   const date = new Date().setUTCHours(0, 0, 0, 0); 
   try {
     const userId = req.user?._id;
-    const firstName = req.user?.firstName;
-    const lastName = req.user?.lastName;
-    const userName = `${firstName} ${lastName}`;
-    const applicationData = { ...req.body, user: userId, userName: userName ,date: date}; 
+    const userName = req.user?.signInDetail.userName;
+    const applicationData = { ...req.body,userName:userName, user: userId ,date: date}; 
     const newLeaveApplication = await leaveApplication.create(applicationData);
     // await User.findByIdAndUpdate(
     //   userId,
     //   { $push: { userLeaveApplication: newLeaveApplication._id } },
     //   { new: true, useFindAndModify: false }
-    // );    
+    // );     
     res.status(200).json({ 
       success: true, 
       message: 'Leave application created successfully',

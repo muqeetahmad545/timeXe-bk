@@ -6,7 +6,7 @@ import { checkOut } from "../controllers/checkOutController";
 import {
   deleteUsers,
   getAllUsers,
-  updatStatus,
+  updateStatus,
   updateUsers,
 } from "../controllers/fetchUsersController";
 import { getUserAttendance } from "../controllers/userAttendence";
@@ -22,12 +22,13 @@ import {
   updateLeaveApplication,
 } from "../controllers/leaveApplicationController";
 import { authenticateUser } from "../controllers/middleware/AuthMiddelware";
+import { handleImageUpload } from "./uploadRouter";
 
 const router: Router = express.Router();
 
 router.post("/login", authUser);
 
-router.use(authenticateUser);
+// router.use(authenticateUser);
 router.post("/users", createUser);
 
 router.post("/attendance/check-in", checkIn);
@@ -38,7 +39,7 @@ router.get("/userDetails", getUserDetails);
 router.get("/fetchusers", getAllUsers);
 router.delete("/delete", deleteUsers);
 router.patch("/update", updateUsers);
-router.patch("/status", updatStatus);
+router.patch("/status", updateStatus);
 
 // Attandace
 router.get("/userattendance", getUserAttendance);
@@ -52,4 +53,6 @@ router.post("/leaveapplication", createLeaveApplication);
 router.patch("/leaveapplication", updateLeaveApplication);
 router.delete("/leaveapplication", deleteLeaveApplication);
 
+// uploadFile
+router.use("/upload",handleImageUpload);
 export default router;
