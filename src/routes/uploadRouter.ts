@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import {imageHandler} from '../controllers/uploadController'
+import { imageHandler } from '../controllers/uploadController';
+
 export const handleImageUpload = async (req: Request, res: Response): Promise<void> => {
   try {
     const result = await imageHandler(req, res);
@@ -20,4 +21,3 @@ export const handleImageUpload = async (req: Request, res: Response): Promise<vo
     res.status(500).json({ success: false, error: "Image upload failed" });
   }
 };
-
