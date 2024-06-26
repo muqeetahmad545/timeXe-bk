@@ -25,10 +25,14 @@ export const updateUsers = async (req: Request, res: Response): Promise<void> =>
     }
 
     const updateObject: any = {};
-    for (const key in updateData) {
-      updateObject[`userDetail.${key}`] = updateData[key];
-      updateObject[`jobDetail.${key}`] = updateData[key];
-      updateObject[`signInDetail.${key}`] = updateData[key];
+    for (const key in updateData.userDetail) {
+      updateObject[`userDetail.${key}`] = updateData.userDetail[key];
+    }
+    for (const key in updateData.jobDetail) {
+      updateObject[`jobDetail.${key}`] = updateData.jobDetail[key];
+    }
+    for (const key in updateData.signInDetail) {
+      updateObject[`signInDetail.${key}`] = updateData.signInDetail[key];
     }
 
     const updatedUser = await User.findByIdAndUpdate(
@@ -48,6 +52,42 @@ export const updateUsers = async (req: Request, res: Response): Promise<void> =>
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
+
+
+// export const updateUsers = async (req: Request, res: Response): Promise<void> => {
+//   const userId = req.query.userId as string;
+//   const updateData = req.body; 
+
+//   try {
+//     if (!userId) {
+//       res.status(400).json({ success: false, message: "Missing userId in request query" });
+//       return;
+//     }
+
+//     const updateObject: any = {};
+//     for (const key in updateData) {
+//       updateObject[`userDetail.${key}`] = updateData[key];
+//       updateObject[`jobDetail.${key}`] = updateData[key];
+//       updateObject[`signInDetail.${key}`] = updateData[key];
+//     }
+
+//     const updatedUser = await User.findByIdAndUpdate(
+//       userId,
+//       { $set: updateObject }, 
+//       { new: true }
+//     );
+
+//     if (!updatedUser) {
+//       res.status(404).json({ success: false, message: "User not found" });
+//       return;
+//     }
+
+//     res.status(200).json({ success: true, message: 'User updated successfully', data: updatedUser });
+//   } catch (error) {
+//     console.error('Error updating user:', error);
+//     res.status(500).json({ success: false, message: 'Internal server error' });
+//   }
+// };
 
 
 export const updateStatus = async (
