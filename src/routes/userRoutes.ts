@@ -27,7 +27,7 @@ import { handleImageUpload } from "./uploadRouter";
 const router: Router = express.Router();
 
 router.post("/login", authUser);
-router.use("/upload",handleImageUpload);
+// router.use("/upload",handleImageUpload);
 
 router.use(authenticateUser);
 router.post("/users", createUser);
@@ -55,5 +55,5 @@ router.patch("/leaveapplication", updateLeaveApplication);
 router.delete("/leaveapplication", deleteLeaveApplication);
 
 // uploadFile
-// router.use("/upload",handleImageUpload);
+router.use("/upload", handleImageUpload);
 export default router;

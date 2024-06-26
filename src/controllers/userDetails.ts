@@ -22,7 +22,7 @@ export const getUserDetails = async (
     ) as {
       userId: string;
     };
-    console.log("decodedToken", decodedToken);
+    // console.log("decodedToken", decodedToken);
     const userId = decodedToken.userId;
     const user = await User.findById(userId);
     if (!user) {
