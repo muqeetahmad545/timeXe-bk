@@ -9,6 +9,7 @@ export interface ILeaveApplication extends Document {
   reason: string;
   leaveStatus: string;
   date: Date;
+  manager:string;
 }
 
 const leaveApplication: Schema = new Schema({
@@ -20,6 +21,7 @@ const leaveApplication: Schema = new Schema({
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   reason: { type: String, required: true },
+  manager: { type: String, required: true },
   leaveStatus: {
     type: String,
     enum: ["Approved", "Rejected", "Pending"],
