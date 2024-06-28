@@ -57,14 +57,14 @@ export const markAbsentees = async (): Promise<void> => {
       });
 
       if (!existingRecord) {
-        // const userName = fullName;
+        const userName = user?.signInDetail.userName;
         const timeIn = new Date();
         const timeOut = new Date();
         timeIn.setHours(0, 0, 0, 0);
         timeOut.setHours(0, 0, 0, 0);
         const absentRecord = new AttendanceRecordSchema({
           user: user._id,
-          // userName: fullName,
+          userName: userName,
           date: date,
           status: "Absent",
           time_in: timeIn,
@@ -73,7 +73,7 @@ export const markAbsentees = async (): Promise<void> => {
         });
 
         await absentRecord.save();
-        // console.log(`User ${userName} is marked as absent`);
+        console.log(`User ${userName} is marked as absent`);
       }
     }
 

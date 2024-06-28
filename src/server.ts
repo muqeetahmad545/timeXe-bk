@@ -32,7 +32,8 @@ app.use("/api", userRoutes);
 
 // cron.schedule('36 20 * * *', async () => {
 cron.schedule(
-  "0 14 * * *",
+  "58 20 * * *",
+  // "0 14 * * *",
   async () => {
     await markAbsentees();
   },
@@ -40,8 +41,7 @@ cron.schedule(
     timezone: "Asia/Karachi",
   }
 );
-// console.log("Attendance checker scheduled.");
-
+console.log("Attendance checker scheduled.");
 app.use(express.static(path.join(__dirname, "../build")));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../build", "index.html"));
