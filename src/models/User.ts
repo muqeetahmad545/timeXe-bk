@@ -36,19 +36,19 @@ export interface IUser extends Document {
 const userSchema: Schema = new Schema(
   {
     userDetail: {
-      fullName: { type: String, required: true },
+      fullName: { type: String },
       fatherName: { type: String },
       email: {
         type: String,
-        required: true,
-        unique: true,
+        // required: true,
+        // unique: true,
         lowercase: true,
         trim: true,
       },
       address: { type: String },
-      phone: { type: Number, required: true },
+      phone: { type: Number },
       dob: { type: Date },
-      cnic: { type: String, unique: true, trim: true },
+      cnic: { type: String },
       profileImage: { type: String },
       gender: { type: String },
     },
@@ -71,9 +71,9 @@ const userSchema: Schema = new Schema(
       },
     },
     signInDetail: {
-      userName: { type: String, required: true },
-      signInEmail: { type: String, required: true },
-      password: { type: String, required: true, minlength: 8 },
+      userName: { type: String },
+      signInEmail: { type: String },
+      password: { type: String, minlength: 8 },
       confirmPassword: { type: String, minlength: 8 },
     },
   },
