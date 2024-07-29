@@ -15,7 +15,7 @@ export interface IUser extends Document {
     employeeId: number;
     companyName: string;
     department: string;
-    jobPosition: string;
+    jobType: string;
     manager: string;
     designation: string;
     joiningDate: Date;
@@ -56,7 +56,7 @@ const userSchema: Schema = new Schema(
       employeeId: { type: Number },
       companyName: { type: String },
       department: { type: String },
-      jobPosition: { type: String },
+      jobType: { type: String },
       manager: { type: String },
       designation: { type: String },
       joiningDate: { type: Date },

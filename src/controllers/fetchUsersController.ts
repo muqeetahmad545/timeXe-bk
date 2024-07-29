@@ -115,10 +115,10 @@ export const updateUsers = async (
 
     // Check for required fields in jobDetail
     if (jobDetail) {
-      if (!jobDetail.jobPosition) {
+      if (!jobDetail.jobType) {
         res.status(400).json({
           success: false,
-          error: "Job Position is required.",
+          error: "Job Type is required.",
         });
         return;
       }

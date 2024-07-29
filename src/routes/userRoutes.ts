@@ -27,7 +27,7 @@ import { handleImageUpload } from "./uploadRouter";
 const router: Router = express.Router();
 
 router.post("/login", authUser);
-router.post("/upload",handleImageUpload);
+router.post("/upload", handleImageUpload);
 
 router.use(authenticateUser);
 router.post("/users", createUser);

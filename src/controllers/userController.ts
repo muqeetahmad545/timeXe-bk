@@ -64,10 +64,10 @@ export const createUser = async (
       });
       return;
     }
-    if (!jobDetail.jobPosition) {
+    if (!jobDetail.jobType) {
       res.status(400).json({
         success: false,
-        error: "Job Position is required",
+        error: "Job jobType is required",
       });
       return;
     }

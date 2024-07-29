@@ -19,7 +19,7 @@ declare global {
 dotenv.config();
 const app: Application = express();
 app.use(cors());
-const PORT: number = parseInt(process.env.PORT || "5000");
+const PORT: number = parseInt(process.env.PORT || "3010");
 
 const connected = `mongodb+srv://muqeetahmad545:aws123@cluster0.c2nkkir.mongodb.net/Time-Xe`;
 mongoose
@@ -31,17 +31,17 @@ app.use(bodyParser.json());
 app.use("/api", userRoutes);
 
 // cron.schedule('36 20 * * *', async () => {
-// cron.schedule(
-//   "58 20 * * *",
-//   // "0 14 * * *",
-//   async () => {
-//     await markAbsentees();
-//   },
-//   {
-//     timezone: "Asia/Karachi",
-//   }
-// );
-// console.log("Attendance checker scheduled.");
+cron.schedule(
+  // "58 20 * * *",
+  "00 14 * * *",
+  async () => {
+    await markAbsentees();
+  },
+  {
+    timezone: "Asia/Karachi",
+  }
+);
+console.log("Attendance checker scheduled.");
 app.use(express.static(path.join(__dirname, "../build")));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../build", "index.html"));

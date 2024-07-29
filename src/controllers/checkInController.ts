@@ -46,37 +46,44 @@ export const checkIn = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const markAbsentees = async (): Promise<void> => {
+  const today = new Date();
+  const dayOfWeek = today.getUTCDay();
+  if (dayOfWeek === 0 || dayOfWeek === 6) {
+    console.log(`Today is ${dayOfWeek === 0 ? "Sunday" : "Saturday"}`);
+    return;
+  }
+
   const date = new Date().setUTCHours(0, 0, 0, 0);
   try {
-    const users = await userSchema.find();
-
+    const users = await userSchema.find({ "jobDetail.role": "user" });
     for (const user of users) {
-      const existingRecord = await AttendanceRecordSchema.findOne({
-        user: user._id,
-        date: date,
-      });
-
-      if (!existingRecord) {
-        const userName = user?.signInDetail.userName;
-        const timeIn = new Date();
-        const timeOut = new Date();
-        timeIn.setHours(0, 0, 0, 0);
-        timeOut.setHours(0, 0, 0, 0);
-        const absentRecord = new AttendanceRecordSchema({
+      if (user.jobDetail.role === "user") {
+        const existingRecord = await AttendanceRecordSchema.findOne({
           user: user._id,
-          userName: userName,
           date: date,
-          status: "Absent",
-          time_in: timeIn,
-          time_out: timeOut,
-          working_hours: 0,
         });
 
-        await absentRecord.save();
-        console.log(`User ${userName} is marked as absent`);
+        if (!existingRecord) {
+          const userName = user?.signInDetail.userName;
+          const timeIn = new Date();
+          const timeOut = new Date();
+          timeIn.setHours(0, 0, 0, 0);
+          timeOut.setHours(0, 0, 0, 0);
+          const absentRecord = new AttendanceRecordSchema({
+            user: user._id,
+            userName: userName,
+            date: date,
+            status: "Absent",
+            time_in: timeIn,
+            time_out: timeOut,
+            working_hours: 0,
+          });
+
+          await absentRecord.save();
+          console.log(`User ${userName} is marked as absent`);
+        }
       }
     }
-
     console.log("Attendance check completed");
   } catch (error) {
     console.error("Error in attendance check:", error);
